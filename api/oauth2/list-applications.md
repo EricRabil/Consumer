@@ -33,7 +33,7 @@ none
       "bot": true,
       "token": "{{bot token}}",
       "avatar": "{{bot avatar id}}",
-      "discriminator": "1617",
+      "discriminator": "{{bot discrim}}",
       "id": "{{bot id}}"
     },
     "secret": "{{bot secret}}",
