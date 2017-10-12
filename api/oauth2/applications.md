@@ -39,6 +39,6 @@ none
     "secret": "{{bot secret}}",
     "flags": 0,
     "bot_public": true
-  }, more objects repeating the above schema, each one representing another bot the user owns
+  }, "more objects repeating the above schema, each one representing another bot the user owns"
 ]
 ```
