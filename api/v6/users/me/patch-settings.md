@@ -5,7 +5,7 @@
 
 ##### Important Headers
 ```
-authorization:mfa.Gx2LfFbLe2qwX8YGoBopSZOZQSvAwYX9b1TXxeez1M4y_nK0_hUay0Xlyte8skTSTet6neBHtLNfU8f-hSDV
+authorization:{{your token}}
 content-type:application/json
 user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) discord/0.0.248 Chrome/56.0.2924.87 Discord/1.6.11 Safari/537.36
 ```
