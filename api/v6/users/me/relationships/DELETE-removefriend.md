@@ -1,4 +1,4 @@
-### `/api/v6/users/@me/relationships/{{user to revoke/deny friendship}}`
+### `/api/v6/users/@me/relationships/{{user id to revoke/deny friendship}}`
 ------
 
 * `Request Method`: `DELETE`
