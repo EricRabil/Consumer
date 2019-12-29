@@ -4,6 +4,7 @@ import path from "path";
 
 const interpolateRegex = /%.+%/g;
 const urlRegex = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/g;
+let base = process.cwd();
 inquirer.registerPrompt('list-input', require('inquirer-list-input'));
 
 function beautify(content: any) {
@@ -14,30 +15,43 @@ function beautify(content: any) {
     }
 }
 
+const ui = new inquirer.ui.BottomBar();
+
 class Consumer {
     async main() {
+        ui.log.write('Entering setup');
+
+        await inquirer.prompt({
+            type: 'input',
+            name: 'path',
+            message: 'Where will assets be loaded and stored?',
+            default: base
+        }).then(({path}) => base = path);
+
+        // load har file
         const har = await inquirer.prompt({
             type: 'input',
             name: 'har',
             message: 'Where is the har file?',
-            default: path.join(__dirname, "requests.har")
+            default: path.join(base, "requests.har")
         }).then(({har: path}) => fs.readJSON(path));
 
+        // load template file
         const template = await inquirer.prompt({
             type: 'input',
             name: 'template',
             message: 'Where is the template?',
-            default: path.join(__dirname, "template.md")
+            default: path.join(base, "template.md")
         }).then(({template: path}) => fs.readFile(path)).then(file => file.toString());
 
-        // global headers as well as any extras per-request
-        console.log(har.log.entries[0].request.headers);
+        // array of all headers in the har file
         const allHeaders: string[] = har.log.entries.reduce((a,c) => a.concat((c.request.headers as any[]).map(h => h.name as string)), [])
                                           .reduce((a: any[], c: string) => {
                                               if (a.indexOf(c) === -1) a.push(c);
                                               return a;
                                           }, []);
 
+        // headers to include in all requests (where present)
         const globals: string[] = (await inquirer.prompt({
             type: 'checkbox',
             name: 'globals',
@@ -45,6 +59,7 @@ class Consumer {
             choices: allHeaders
         })).globals;
         
+        // requests to generate docs for
         const requests: any[] = await inquirer.prompt({
             type: "checkbox",
             name: "requests",
@@ -62,6 +77,8 @@ class Consumer {
         }
         
         requests.forEach(async req => {
+            ui.log.write(`Generating docs for ${req.request.method} - ${req.request.url}`);
+
             const headerNames: string[] = req.request.headers.map(h => h.name);
 
             // have user specify if they want to include additional headers after globals
@@ -128,8 +145,16 @@ class Consumer {
             fields.forEach(field => {
                 text = text.replace(field, templateValues[field.split('%')[1]] || '???');
             });
+            
+            const { name } = await inquirer.prompt({
+                type: 'input',
+                name: 'name',
+                message: 'Where shall we save this?',
+                default: path.join(base, templateValues.route + `.${templateValues.method}.md`)
+            });
 
-            console.log(text);
+            await fs.ensureFile(name);
+            await fs.writeFile(name, text);
         })
     }
 }
