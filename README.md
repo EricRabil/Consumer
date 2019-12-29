@@ -1,2 +1,8 @@
-# Discord-Private-API
-Detailed documentation for Discord's private API ❤️
+# Consumer
+A documentation generator that takes .har files
+
+## Getting started
+```
+npm i
+npm run gen
+```

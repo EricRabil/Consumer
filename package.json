@@ -4,7 +4,7 @@
   "description": "API documentation from a HAR file",
   "main": "out/index.js",
   "scripts": {
-    "run": "ts-node src/index.ts"
+    "gen": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
