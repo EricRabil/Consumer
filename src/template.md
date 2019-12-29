@@ -1,21 +1,21 @@
 ### `%route%`
 ------
 
-* `Request Method`: `%request-method%`
+* `Request Method`: `%method%`
 
 ##### Important Headers
 ```
 %headers%
 ```
 
-##### Request Payload
+##### Request Payload (If Any)
 ```json
 %request%
 ```
 
 > %request-notes%
 
-##### Response Payload
+##### Response Payload (If Any)
 ```json
 %response%
 ```

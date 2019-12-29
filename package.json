@@ -1,0 +1,26 @@
+{
+  "name": "consumer",
+  "version": "1.0.0",
+  "description": "API documentation from a HAR file",
+  "main": "out/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricRabil/Consumer.git"
+  },
+  "author": "Eric Rabil <ericjrabil@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EricRabil/Consumer/issues"
+  },
+  "homepage": "https://github.com/EricRabil/Consumer#readme",
+  "dependencies": {
+    "@types/fs-extra": "^8.0.1",
+    "@types/inquirer": "^6.5.0",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^7.0.1",
+    "inquirer-list-input": "^0.1.2"
+  }
+}
